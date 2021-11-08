@@ -32,10 +32,9 @@ struct fai_info {
     fai_info(std::vector<std::string> v) {
         assert(v.size() == 5);
         int hlen=v[0].length();
-        this->chr_name_len       = hlen;
+        this->chr_name_len     = hlen;
         this->chr_name         = new char[hlen + 1];
-        std::strncpy(this->chr_name, v[0].c_str(), hlen);
-        this->chr_name[hlen]   = '\0';
+        std::strcpy(this->chr_name, v[0].c_str());
         this->chr_len          = std::stoull(v[1]);
         this->seq_start        = std::stoull(v[2]);
         this->seq_len_per_line = std::stoull(v[3]);
