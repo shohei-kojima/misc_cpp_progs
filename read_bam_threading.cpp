@@ -1,3 +1,9 @@
+
+/*
+Author: Shohei Kojima @ RIKEN
+This is an example of simple bam read prog.
+*/
+
 #include <iostream>
 #include <cstring>
 #include <cstdlib>
@@ -8,10 +14,11 @@ using namespace std;
 
 
 /*
- usage: %prog in.bam thread_num
+ usage: ./read_bam_threading in.bam thread_num
  g++ -o read_bam_threading -I /path/to/htslib/htslib-1.13 -L /path/to/htslib/htslib-1.13 read_bam_threading.cpp -lhts
  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/htslib/htslib-1.13
  */
+
 int main(int argc, char* argv[]) {
     int nthread;
     if (argc <= 1) {
@@ -165,41 +172,3 @@ int main(int argc, char* argv[]) {
 }
 
 
-
-/*
- time samtools view test_chrY.bam > /dev/null
- real    0m3.287s
- user    0m3.239s
- sys    0m0.048s
-
- 
- time samtools view -@ 3 test_chrY.bam > /dev/null
- real    0m1.132s
- user    0m3.617s
- sys    0m0.066s
- 
- 
- time ./read_bam test_chrY.bam > /dev/null
- real    0m3.223s
- user    0m3.127s
- sys    0m0.096s
- 
- 
- time ./read_bam_threading test_chrY.bam > /dev/null  # 3 threads
- real    0m1.088s
- user    0m3.422s
- sys    0m0.207s
- 
- 
- time python py_read_bam.py test_chrY.bam > /dev/null
- real    0m3.965s
- user    0m3.941s
- sys    0m0.024s
- 
- 
- time python py_read_bam.py test_chrY.bam > /dev/null  # 3 threads
- real    0m3.262s
- user    0m4.647s
- sys    0m0.095s
-
- */
