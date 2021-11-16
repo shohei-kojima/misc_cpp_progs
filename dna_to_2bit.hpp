@@ -1,6 +1,6 @@
 /*
  Author: Shohei Kojima @ RIKEN
- This is a minimal header-only file that converts DNA to 2bit.
+ This is a minimal DNA to 2bit converter.
  */
 
 #ifndef DNA_TO_2BIT_HPP
@@ -73,8 +73,12 @@ void dna_to_2bit_bidirectional_32(char* seq, ull& seqlen, const int& window_size
         }
     }
     if (nn == 0) {
-        v.push_back(bit2f);
-        v.push_back(bit2r);
+        if (bit2f == bit2r) {
+            v.push_back(bit2f);
+        } else {
+            v.push_back(bit2f);
+            v.push_back(bit2r);
+        }
     }
     
     // rolling calc.
@@ -87,6 +91,8 @@ void dna_to_2bit_bidirectional_32(char* seq, ull& seqlen, const int& window_size
             nn= window_size - 1;
         } else if (nn > 0) {  // within window_size-nt from N or n
             nn--;
+        } else if (bit2f == bit2r) {
+            v.push_back(bit2f);
         } else {
             v.push_back(bit2f);
             v.push_back(bit2r);
@@ -151,8 +157,12 @@ void dna_to_2bit_bidirectional_64(char* seq, ull& seqlen, const int& window_size
         }
     }
     if (nn == 0) {
-        v.push_back(bit2f);
-        v.push_back(bit2r);
+        if (bit2f == bit2r) {
+            v.push_back(bit2f);
+        } else {
+            v.push_back(bit2f);
+            v.push_back(bit2r);
+        }
     }
     
     // rolling calc.
@@ -165,6 +175,8 @@ void dna_to_2bit_bidirectional_64(char* seq, ull& seqlen, const int& window_size
             nn= window_size - 1;
         } else if (nn > 0) {  // within window_size-nt from N or n
             nn--;
+        } else if (bit2f == bit2r) {
+            v.push_back(bit2f);
         } else {
             v.push_back(bit2f);
             v.push_back(bit2r);
@@ -179,25 +191,25 @@ void dna_to_2bit_bidirectional_64(char* seq, ull& seqlen, const int& window_size
  This is the main for testing - this is also an example how to use this.
  g++ -o dna_to_2bit dna_to_2bit.cpp
  */
-int _main() {
-    const char* seq ="ATGCATCGACTAGCATCGACTAGCATGACnAGATGCATCGACTAGCATCGACTAGCATGACTAC";
-    const char* cseq="GTAGTCATGCTAGTCGATGCTAGTCGATGCATCTnGTCATGCTAGTCGATGCTAGTCGATGCAT";
+//int _main() {
+//    const char* seq ="ATGCATCGACTAGCATCGACTAGCATGACnAGATGCATCGACTAGCATCGACTAGCATGACTAC";
+//    const char* cseq="GTAGTCATGCTAGTCGATGCTAGTCGATGCATCTnGTCATGCTAGTCGATGCTAGTCGATGCAT";
 //    const char* seq ="CGACTAGCATGACTAC";
 //    const char* cseq="GTAGTCATGCTAGTCG";
-    ull seqlen=64;
-    const int window_size=init_dna_to_2bit_64();
-
-    std::vector<uint64_t> v;
-    dna_to_2bit_bidirectional_64(seq,  seqlen, window_size, v);
-    dna_to_2bit_bidirectional_64(cseq, seqlen, window_size, v);
-
+//    ull seqlen=64;
+//    const int window_size=init_dna_to_2bit_64();
+//
+//    std::vector<uint64_t> v;
+//    dna_to_2bit_bidirectional_64(seq,  seqlen, window_size, v);
+//    dna_to_2bit_bidirectional_64(cseq, seqlen, window_size, v);
+//
 //    std::sort(v.begin(), v.end());
-    for (uint64_t b : v) {
-        std::cout << b << std::endl;
-    }
-    
-    return 0;
-}
+//    for (uint64_t b : v) {
+//        std::cout << b << std::endl;
+//    }
+//
+//    return 0;
+//}
 
 
 
